@@ -57,14 +57,17 @@ class MultiHeadedAttention(nn.Module):
         self.head_count = head_count
 
         self.linear_keys = nn.Linear(model_dim,
-                                     head_count * self.dim_per_head)
+                                     head_count * self.dim_per_head,
+                                     bias=False)
         self.linear_values = nn.Linear(model_dim,
-                                       head_count * self.dim_per_head)
+                                       head_count * self.dim_per_head,
+                                       bias=False)
         self.linear_query = nn.Linear(model_dim,
-                                      head_count * self.dim_per_head)
+                                      head_count * self.dim_per_head,
+                                      bias=False)
         self.softmax = nn.Softmax(dim=-1)
         self.dropout = nn.Dropout(dropout)
-        self.final_linear = nn.Linear(model_dim, model_dim)
+        self.final_linear = nn.Linear(model_dim, model_dim, bias=False)
 
     def forward(self, key, value, query, mask=None,
                 layer_cache=None, type=None):
