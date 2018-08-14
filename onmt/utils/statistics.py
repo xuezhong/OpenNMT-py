@@ -111,7 +111,7 @@ class Statistics(object):
         t = self.elapsed_time()
         logger.info(
             ("Step %2d/%5d; acc: %6.2f; ppl: %5.12f; xent: %4.12f; " +
-             "lr: %7.5f; %3.0f/%3.0f tok/s; %6.0f sec")
+             "lr: %7.5f; %3.0f/%3.0f tok/s;%d tok;loss:%5.12f;%6f sec")
             % (step, num_steps,
                self.accuracy(),
                self.ppl(),
@@ -119,6 +119,8 @@ class Statistics(object):
                learning_rate,
                self.n_src_words / (t + 1e-5),
                self.n_words / (t + 1e-5),
+               self.n_words,
+               self.loss,
                time.time() - start))
         sys.stdout.flush()
 
